@@ -22,7 +22,7 @@ const Formulario = () => {
     }
 
     setAlerta('');
-    obtenerBebidas()
+    obtenerBebidas(busqueda)
   };
 
   return (
