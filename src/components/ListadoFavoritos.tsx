@@ -11,6 +11,7 @@ const ListadoFavoritos = () => {
         <Bebida
           key={bebida.idDrink}
           bebida={bebida}
+          isFavorito={true}
         />
       ))}
     </Row>

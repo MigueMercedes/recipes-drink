@@ -13,6 +13,7 @@ export interface BebidasContextI {
   loading: boolean;
   favoritos: Drink[];
   handleAgregarFavorito: (bebida: Drink) => void;
+  handleEliminarFavorito: (id: string) => void;
 }
 
 interface BebidaInfoI {
@@ -36,7 +37,6 @@ const BebidasProvider = ({ children }: { children: ReactNode }) => {
       if (!bebidaId) return;
 
       try {
-        setLoading(true);
         setReceta({} as BebidaDetails);
         const url = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${bebidaId}`;
         const {
@@ -84,6 +84,12 @@ const BebidasProvider = ({ children }: { children: ReactNode }) => {
     setFavoritos([...favoritos, bebida]);
   };
 
+  const handleEliminarFavorito = (id: string) => {
+    const nuevosFavoritos = favoritos.filter(bebida => bebida.idDrink !== id);
+    setFavoritos(nuevosFavoritos);
+    localStorage.setItem('favoritos', JSON.stringify(nuevosFavoritos));
+  };
+
   return (
     <BebidasContext.Provider
       value={{
@@ -96,6 +102,7 @@ const BebidasProvider = ({ children }: { children: ReactNode }) => {
         loading,
         favoritos,
         handleAgregarFavorito,
+        handleEliminarFavorito,
       }}
     >
       {children}
